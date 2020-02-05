@@ -4,13 +4,13 @@ import Colors from '../constants/colors'
 import Input from '../components/input';
 import { StyleSheet, Text, View, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import NumberContainer from '../components/numberContainer';
-
+import BodyText from '../components/BodyText';
+import TitleText from '../components/TitleText';
 
 function StartGameScreen(props) {
     const [enteredValue, setEnteredValue] = useState('');
     const [confirm, setConfirm] = useState(false);
     const [selectedNumber, setSelectedNumber] = useState();
-
     const numberInputHandler = (text) => {
         setEnteredValue(text.replace(/[^0-9]/g, ' '))
     };
@@ -34,7 +34,7 @@ function StartGameScreen(props) {
     if (confirm) {
         confirmedOutput =
             <Card style={styles.summaryContainer}>
-                <Text>You Selected:</Text>
+                <BodyText>You Selected:</BodyText>
                 <NumberContainer>{selectedNumber}</NumberContainer>
                 <Button title='START GAME' onPress={() => { props.onStartGame(selectedNumber) }} />
             </Card>
@@ -42,9 +42,9 @@ function StartGameScreen(props) {
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
             <View style={styles.screen}>
-                <Text style={styles.title}>Start a New Game!</Text>
+                <TitleText style={styles.title}>Start a New Game!</TitleText>
                 <Card style={styles.inputContainer}>
-                    <Text>Select a Number</Text>
+                    <BodyText>Select a Number</BodyText>
                     <Input style={styles.input}
                         blurOnSubmit autoCorrect={false} autoCapitalize='none' keyboardType='number-pad' maxLength={2}
                         onChangeText={numberInputHandler}

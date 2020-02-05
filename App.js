@@ -4,10 +4,26 @@ import Header from './components/Headers';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import GameOverScreen from './screens/GameOver';
+import { AppLoading } from 'expo'
+import * as Fonts from 'expo-font';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [guessRounds, setGuessRounds] = useState(0);
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  function FetchFonts() {
+    return Fonts.loadAsync({
+      'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+      'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+    })
+  }
+  if (!dataLoaded) {
+    return <AppLoading
+      startAsync={FetchFonts}
+      onFinish={() => setDataLoaded(true)}
+      onError={(err) => console.log(err)} />
+  }
 
   function configureNewGame() {
     setGuessRounds(0);
